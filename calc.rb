@@ -12,6 +12,7 @@ class TaxCalculator
     taxes = 0.0
     income = income - @deduction
 
+    # puts "Total income to be taxed: #{income}"
     @brackets.each do |bracket|
       min = bracket[:min]
       break if min > income
@@ -19,13 +20,17 @@ class TaxCalculator
       max = bracket[:max]
       if max <= income
         taxable_income = max - min
+        # puts "Taxable income: #{taxable_income} @ #{bracket[:percent]}"
         taxes += (taxable_income * bracket[:percent]).round(2)
       end
 
-      if max == nil || max > income
+      if (max == nil || max > income) && (min < income)
         taxable_income = income - min
+        # puts "Taxable income: #{taxable_income} @ #{bracket[:percent]}"
         taxes += (taxable_income * bracket[:percent]).round(2)
       end
+
+      # puts "Taxes for this bracket: #{taxes}"
     end
 
     return taxes

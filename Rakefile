@@ -19,8 +19,14 @@ require './tax_brackets.rb'
 
 desc "compare tax 'savings'"
 task :calc_tax, [:income] do |task, args|
-  puts "Current: #{TaxCalculator.new(bracket_name:"current").calc_taxes(args[:income].to_f)}"
+
+  current = TaxCalculator.new(bracket_name:"current").calc_taxes(args[:income].to_f)
+  final   = TaxCalculator.new(bracket_name:"final").calc_taxes(args[:income].to_f)
+  puts "Current: #{current}"
   puts "House:   #{TaxCalculator.new(bracket_name:"house").calc_taxes(args[:income].to_f)}"
   puts "Senate:  #{TaxCalculator.new(bracket_name:"senate").calc_taxes(args[:income].to_f)}"
+  puts "Final:  #{final}"
+
+  puts "Total Savings: #{current - final}"
 
 end
