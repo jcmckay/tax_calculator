@@ -22,11 +22,10 @@ task :calc_tax, [:income] do |task, args|
 
   current = TaxCalculator.new(bracket_name:"current").calc_taxes(args[:income].to_f)
   final   = TaxCalculator.new(bracket_name:"final").calc_taxes(args[:income].to_f)
-  puts "Current: #{current}"
-  puts "House:   #{TaxCalculator.new(bracket_name:"house").calc_taxes(args[:income].to_f)}"
-  puts "Senate:  #{TaxCalculator.new(bracket_name:"senate").calc_taxes(args[:income].to_f)}"
-  puts "Final:  #{final}"
-
-  puts "Total Savings: #{current - final}"
+  puts ""
+  puts "(2017) Current Taxes:                         $#{current}"
+  puts "(2018) Tax Cuts and Jobs Act Taxes:           $#{final}"
+  puts "       Total Savings:                         $#{(current - final).round(2)}"
+  puts ""
 
 end
